@@ -1,11 +1,10 @@
-const p = require('./db')
-
+import p from './db.js'
 // async function getTools2() {
 //   return p.query(queries.getTools).then(results => results.rows)
 // }
 
-async function pQuery(query) {
-  return (await p.query(query, [...arguments])).rows
+async function pQuery(query, argumentss = []) {
+  return (await p.query(query, [...argumentss])).rows
 }
 
 const qString = {
@@ -29,11 +28,19 @@ const qString = {
   changeUsersStatus: `UPDATE users SET is_active = true WHERE activation_link = $1`,
   getUserByActivationLink: `SELECT * FROM users WHERE activation_link = $1`,
   createAuth: `INSERT INTO auth (id_user, refresh_token) VALUES ($1, $2)`,
-  createUser: `INSERT INTO users(user_email, user_password, is_active, ip_or_browser, date_of_registration, activation_link) VALUES($1, $2, false, 'null', $3, $4) RETURNING *`,
   getTokenByToken: 'SELECT * FROM auth WHERE  refresh_token = $1',
+
+  createUser: `INSERT INTO users(email, login, password, date_of_registration) VALUES($1, $2, $3, NOW())`,
 }
 
 class Queries {
+  async createUser(email, login, hashPassword) {
+    const user = await pQuery(qString.createUser, arguments)
+    console.log('dldl')
+    console.log(user || 'ajajaja')
+    return user[0]
+  }
+
   async getLists() {
     return pQuery(qString.getLists)
   }
@@ -93,11 +100,6 @@ class Queries {
 
   async createAuth(userId, refreshToken) {
     return pQuery(qString.createAuth, arguments)
-  }
-
-  async createUser(email, hashPassword, currentDate, activationLink) {
-    const user = await pQuery(qString.createUser, arguments)
-    return user[0]
   }
 
   async changeUsersStatus(activationLink) {

@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken'
+import * as dotenv from 'dotenv'
+dotenv.config()
+import bcrypt from 'bcrypt'
+import sql from './sql.js'
 // const nodemailer = require('nodemailer')
-// const bcrypt = require('bcrypt')
 // const currentDate = require('../helpers/getCurrentDate')
 // const uuid = require('uuid')
 // const queries = require('../sql-query')
@@ -8,27 +11,53 @@ import jwt from 'jsonwebtoken'
 // const userDtoFunc = require('../dtos/user-dto')
 
 class UserService {
-  async registerUser(username, email, passwwrd, date) {
-    const refreshToken = jwt.sign(payload, 'process.env.JWT_REFRESH_SECRET', {
+  async loginUser(username, password) {
+    // есть ли такой пользователь в бд?
+    // const isValidPassword = bcrypt.compare(password, )
+    const data = { username, password }
+    const accessToken = jwt.sign(data, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    })
+    const refreshToken = jwt.sign(data, process.env.JWT_SECRET, {
       expiresIn: '30d',
     })
+    return { accessToken, refreshToken }
+  }
+  async registerUser(login, email, password) {
+    // const refreshToken = jwt.sign(payload, 'process.env.JWT_REFRESH_SECRET', {
+    //   expiresIn: '30d',
+    // })
 
-    const hasUserByEmail = await queries.getUserByEmail(email)
-    if (hasUserByEmail.length) {
-      throw new Error(`Пользователь с почтой ${email} существует`)
-    }
-    const hasUserByLogin = await queries.getUserByLogin(login)
-    if (hasUserByLogin.length) {
-      throw new Error(`Пользователь с почтой ${email} существует`)
-    }
+    // const hasUserByEmail = await queries.getUserByEmail(email)
+    // if (hasUserByEmail.length) {
+    //   throw new Error(`Пользователь с почтой ${email} существует`)
+    // }
+    // const hasUserByLogin = await queries.getUserByLogin(login)
+    // if (hasUserByLogin.length) {
+    //   throw new Error(`Пользователь с почтой ${email} существует`)
+    // }
 
-    const user = await queries.createUser(login, email, password, date)
-    const userDto = userDtoFunc(user)
-    const tokens = this.generateToken({ ...userDto })
-    const activateUrl = `${url.server}/activateAccount?link=${activationLink}`
-    this.sendMessage(email, activateUrl)
-    this.saveToken(userDto.user_id, tokens.refreshToken)
-    return { user: userDto, ...tokens }
+    // const user = await queries.createUser(login, email, password, date)
+    // const userDto = userDtoFunc(user)
+    // const tokens = this.generateToken({ ...userDto })
+    // const activateUrl = `${url.server}/activateAccount?link=${activationLink}`
+    // this.sendMessage(email, activateUrl)
+    // this.saveToken(userDto.user_id, tokens.refreshToken)
+    // const hasUser = await queries.getUserByEmail(email)
+    // if (hasUser.length) {
+    //   throw new Error(`Пользователь с почтой ${email} существует`)
+    // }
+    const hashPassword = await bcrypt.hash(password, 3)
+    const data = { hashPassword, email, login }
+    const a = await sql.createUser(email, login, hashPassword)
+    console.log('pre')
+    // отправить данные в бд
+    const accessToken = await jwt.sign(data, process.env.JWT_SECRET, {
+      expiresIn: '24h',
+    })
+
+    console.log(data)
+    return accessToken
   }
   // async getLists() {
   //   return await queries.getCategories()

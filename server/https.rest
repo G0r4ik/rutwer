@@ -1,0 +1,24 @@
+POST http://localhost:3000/register HTTP/1.1
+content-type: application/json
+
+{
+  "login": "logi345345n",
+  "email": "email345345",
+  "password": "a43534"
+}
+
+###
+
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+  "login": "logi345345n",
+  "email": "email345345",
+  "password": "a43534"
+}
+
+###
+
+GET http://localhost:3000/post/1/comment/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6ImE0MzUzNCIsImlhdCI6MTY3NTI4MTQ3NCwiZXhwIjoxNjc1Mjg1MDc0fQ.KHJlxrHnjGjMV4q-hGNzfzqWVQd9b4JSDY-svC29yHs
