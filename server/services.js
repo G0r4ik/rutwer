@@ -11,6 +11,9 @@ import sql from './sql.js'
 // const userDtoFunc = require('../dtos/user-dto')
 
 class UserService {
+  addPost() {
+    // ...
+  }
   async loginUser(username, password) {
     // есть ли такой пользователь в бд?
     // const isValidPassword = bcrypt.compare(password, )
@@ -50,13 +53,11 @@ class UserService {
     const hashPassword = await bcrypt.hash(password, 3)
     const data = { hashPassword, email, login }
     const a = await sql.createUser(email, login, hashPassword)
-    console.log('pre')
     // отправить данные в бд
     const accessToken = await jwt.sign(data, process.env.JWT_SECRET, {
       expiresIn: '24h',
     })
 
-    console.log(data)
     return accessToken
   }
   // async getLists() {

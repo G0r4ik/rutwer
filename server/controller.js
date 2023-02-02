@@ -1,28 +1,40 @@
 import userService from './services.js'
+import sql from './sql.js'
+import bcrypt from 'bcrypt'
 
 async function registerUser(req, res) {
   try {
     const { login, email, password } = req.body
-    // if(login) return
-    // if(email) return
+    const user = await sql.getUser(email, login)
+    if (user) return res.end('Пользователь уже существует')
     const token = await userService.registerUser(login, email, password)
-
     res.end(token)
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 async function loginUser(req, res) {
   try {
     const { username, password } = req.body
+    const user = await sql.getUser(username, username)
+    if (!user) {
+      return res.end('Нет такого пользовтателя')
+    }
+    const isValidPassword = await bcrypt.compare(password, user.password)
+    if (!isValidPassword) {
+      return res.end('Неверный пароль')
+    }
+
     const token = await userService.loginUser(username, password)
     res.json(token)
   } catch (error) {
     console.log(error)
   }
 }
+
 async function logout(req, res) {
   try {
-    const tokens = { refreshToken, accessToken }
   } catch (error) {
     console.log(error)
   }
@@ -30,7 +42,8 @@ async function logout(req, res) {
 async function addPost(req, res) {
   try {
     const { title, text_post, date_pub } = req.body
-    await userService.logout(refreshToken)
+    await userService.addPost(title, text_post, date_pub)
+    console.log(req.user)
   } catch (error) {
     console.log(error)
   }
@@ -70,7 +83,7 @@ async function searchPost(req, res) {
 }
 async function addComment(req, res) {
   try {
-    const { username, password } = req.body
+    const { text, author, date } = req.body
   } catch (error) {
     console.log(error)
   }
@@ -91,10 +104,8 @@ async function deleteComment(req, res) {
   }
 }
 async function showAllComments(req, res) {
-  console.log('a')
   try {
     // const { username, password } = req.body
-    res.end('urrraaa')
   } catch (error) {
     console.log(error)
   }

@@ -1,117 +1,61 @@
 import p from './db.js'
-// async function getTools2() {
-//   return p.query(queries.getTools).then(results => results.rows)
-// }
 
-async function pQuery(query, argumentss = []) {
-  return (await p.query(query, [...argumentss])).rows
+async function pQuery(query, args = []) {
+  const response = await p.query(query, [...args])
+  return response.rows
 }
 
-const qString = {
-  getTools: 'SELECT * FROM tools',
-  getToolByIdInCount: `SELECT date_of_completion, _count FROM _counts WHERE id_tool = $1`,
-  setCountsItem: `INSERT INTO _counts(region,job_board,id_tool,date_of_completion,_count) VALUES('Russia','HeadHunter',$1,$2,$3)`,
-  getCounts: `SELECT * FROM _counts WHERE region = $1 AND job_board = $2`,
-
-  getCategories: `SELECT * FROM categories`,
-
-  deleteRefreshToken: `DELETE FROM auth WHERE refresh_token = $1`,
-  updateRefreshToken: `UPDATE auth SET refresh_token = $1`,
-  getTokenByUserId: `SELECT * FROM auth WHERE id_user = $1`,
-
-  getLastDate: `SELECT id_date FROM date_of_completion ORDER BY id_date DESC LIMIT 1`,
-  createNewDate: `INSERT INTO date_of_completion(date_of_completion) VALUES($1)`,
-
-  getUserById: `SELECT * FROM auth WHERE id_user = $1`,
-  getUserIdByToken: `SELECT * FROM users WHERE id_user = $1`,
-  getUserByEmail: `SELECT * FROM users WHERE user_email = $1`,
-  changeUsersStatus: `UPDATE users SET is_active = true WHERE activation_link = $1`,
-  getUserByActivationLink: `SELECT * FROM users WHERE activation_link = $1`,
-  createAuth: `INSERT INTO auth (id_user, refresh_token) VALUES ($1, $2)`,
-  getTokenByToken: 'SELECT * FROM auth WHERE  refresh_token = $1',
-
+const qStr = {
+  getUser: `SELECT * FROM users WHERE email = $1 OR login = $2`,
   createUser: `INSERT INTO users(email, login, password, date_of_registration) VALUES($1, $2, $3, NOW())`,
+
+  createPost: `INSERT INTO posts(title, text, date, id_user) VALUES ($1,$2, $3, $4)`,
+  getPost: `SELECT * FROM posts WHERE id = $1`,
+  updatePost: `UPDATE post SET title = $1;UPDATE post SET text = $2;UPDATE post SET date = $3;`,
+  deletePost: ` DELETE FROM posts WHERE id = $1 `,
+  searchPost: `SELECT * FROM posts WHERE text LIKE '%$1% AND title LIKE '%$1%  '`,
+  addComment: `INSERT INTO comments(text, date, id_user, id_post) VALUES($1,$2,$3,$4)`,
+  deleteComment: `DELETE FROM comments WHERE id_comment = $1`,
+  getAllComments: `SELECT * FROM comments WHERE id_post = $1`,
 }
 
 class Queries {
+  async getPost(postId) {
+    const response = await pQuery(qStr.getPost, [postId])
+    return response[0]
+  }
+  async updatePost(postId) {
+    const response = await pQuery(qStr.updatePost, [postId])
+    return response[0]
+  }
+  async deletePost(postId) {
+    const response = await pQuery(qStr.deletePost, [postId])
+    return response[0]
+  }
+  async searchPost(postId) {
+    const response = await pQuery(qStr.searchPost, [postId])
+    return response[0]
+  }
+  async addComment(postId) {
+    const response = await pQuery(qStr.addComment, [postId])
+    return response[0]
+  }
+  async deleteComment(postId, commentId) {
+    const response = await pQuery(qStr.deleteComment, [postId, commentId])
+    return response[0]
+  }
+  async getAllComments(postId) {
+    const response = await pQuery(qStr.getAllComments, [postId])
+    return response[0]
+  }
+
   async createUser(email, login, hashPassword) {
-    const user = await pQuery(qString.createUser, arguments)
-    console.log('dldl')
-    console.log(user || 'ajajaja')
+    const user = await pQuery(qStr.createUser, [email, login, hashPassword])
     return user[0]
   }
-
-  async getLists() {
-    return pQuery(qString.getLists)
-  }
-
-  async getTools() {
-    return pQuery(qString.getTools)
-  }
-
-  async getToolByIdInCount(id_tool) {
-    return pQuery(qString.getToolByIdInCount, arguments)
-  }
-
-  async getCategories() {
-    return pQuery(qString.getCategories)
-  }
-
-  async getCounts(region, jobBoard) {
-    return pQuery(qString.getCounts, arguments)
-  }
-
-  async setCountsItem(id_tool, lastDateId, countVacancy) {
-    return pQuery(qString.setCountsItem, arguments)
-  }
-
-  async deleteRefreshToken(refreshToken) {
-    return pQuery(qString.deleteRefreshToken, arguments)
-  }
-
-  async updateRefreshToken(refreshToken) {
-    return pQuery(qString.updateRefreshToken, arguments)
-  }
-
-  async getLastDate() {
-    return pQuery(qString.getLastDate, arguments)
-  }
-
-  async createNewDate(date) {
-    return pQuery(qString.createNewDate, arguments)
-  }
-
-  async getUserById(userId) {
-    return pQuery(qString.getUserById, arguments)
-  }
-
-  async getUserByActivationLink(activationLink) {
-    return pQuery(qString.getUserByActivationLink, arguments)
-  }
-
-  async getUserByEmail(email) {
-    const user = await pQuery(qString.getUserByEmail, arguments)
-    return user[0]
-  }
-
-  async getUserIdByToken(token) {
-    return pQuery(qString.getUserIdByToken, arguments)
-  }
-
-  async createAuth(userId, refreshToken) {
-    return pQuery(qString.createAuth, arguments)
-  }
-
-  async changeUsersStatus(activationLink) {
-    return pQuery(qString.changeUsersStatus, arguments)
-  }
-
-  async getDates() {
-    return (await p.query(`SELECT * FROM date_of_completion`)).rows
-  }
-
-  async getTokenByToken(token) {
-    return pQuery(qString.getTokenByToken, arguments)
+  async getUser(email, login) {
+    const response = await pQuery(qStr.getUser, [email, login])
+    return response[0]
   }
 }
 export default new Queries()
