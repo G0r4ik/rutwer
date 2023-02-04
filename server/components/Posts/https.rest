@@ -1,0 +1,179 @@
+### create valid post
+POST http://localhost:3000/api/post/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Мой второй пост!",
+  "text_post": "неа! не буду!",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+
+
+### invalid title
+POST http://localhost:3000/api/post/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "",
+  "text_post": "неа! не буду!",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+
+
+### invalid text
+POST http://localhost:3000/api/post/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Мой второй пост!",
+  "text_post": "",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+### invalid date
+POST http://localhost:3000/api/post/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Мой второй пост!",
+  "text_post": "неа! не буду!",
+  "date_pub": ""
+}
+
+
+
+
+
+
+
+
+
+
+
+
+### correct
+GET http://localhost:3000/api/post/get/12 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+### post does not exist
+GET http://localhost:3000/api/post/get/10 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+### incorect id of post
+GET http://localhost:3000/api/post/get/null HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+
+
+
+### delete does not exist post
+DELETE http://localhost:3000/api/post/delete/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+### delete alien post
+DELETE http://localhost:3000/api/post/delete/12 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+### delete  post
+DELETE http://localhost:3000/api/post/delete/14 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+
+
+
+
+
+
+
+### update valid post
+POST http://localhost:3000/api/post/update/15 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Отредактировано!",
+  "text_post": "Отредактировано!",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+
+
+### invalid title
+POST http://localhost:3000/api/post/update/15 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "",
+  "text_post": "неа! не буду!",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+
+
+### invalid text
+POST http://localhost:3000/api/post/update/15 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Мой второй пост!",
+  "text_post": "",
+  "date_pub": "{{$datetime iso8601}}"
+}
+
+### invalid date
+POST http://localhost:3000/api/post/update/15 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+{
+  "title": "Мой второй пост!",
+  "text_post": "неа! не буду!",
+  "date_pub": ""
+}
+
+
+
+
+
+
+
+
+
+
+
+### seach post
+GET http://localhost:3000/post/search/н HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json
+
+
+
+###
+GET http://localhost:3000/post/search/такоготекстанет HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
+content-type: application/json

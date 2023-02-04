@@ -12,4 +12,11 @@ const pool = new Pool({
   port: process.env.port,
 })
 
-export default pool
+export async function pQuery(query, args = []) {
+  try {
+    const response = await pool.query(query, [...args])
+    return response.rows
+  } catch (error) {
+    console.log(error)
+  }
+}

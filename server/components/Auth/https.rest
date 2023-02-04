@@ -1,0 +1,126 @@
+### unqiue register
+POST http://localhost:3000/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "user {{$randomInt 1 1000}}",
+  "email": "user{{$randomInt 1 1000}}@gmail.com",
+  "password": "password"
+}
+
+
+
+### not unqiue register
+POST http://localhost:3000/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@gmail.com",
+  "password": "admin"
+}
+
+
+
+### empty username
+POST http://localhost:3000/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+
+
+### empty password
+POST http://localhost:3000/api/register HTTP/1.1
+content-type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+
+
+
+
+
+
+
+
+
+
+### valid username and password
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"admin",
+  "password": "admin"
+}
+
+
+
+
+### valid username invalid password
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"admin",
+  "password": "incorrect"
+}
+
+
+
+### invalid username invalid password
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"incorrect",
+  "password": "incorrect"
+}
+
+
+### empty username
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"",
+  "password": "incorrect"
+}
+
+
+### empty password
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"admin",
+  "password": ""
+}
+
+
+
+
+
+
+
+
+
+
+
+### empry username
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username":"",
+  "password": "5"
+}
