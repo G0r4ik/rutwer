@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 
 class UserService {
   async createToken(payload) {
-    return await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' })
+    return await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
   }
 
   async registerUser(username, email, password) {
@@ -16,8 +16,8 @@ class UserService {
 
     const hashPassword = await bcrypt.hash(password, 3)
     const user = await sql.createUser(email, username, hashPassword)
-
-    return this.createToken(user)
+    const token = await this.createToken(user)
+    return { token, user }
   }
 
   async loginUser(username, password) {
@@ -26,8 +26,8 @@ class UserService {
 
     const isValidPassword = await bcrypt.compare(password, user.password)
     if (!isValidPassword) throw { status: 401, message: 'Неправильный пароль' }
-
-    return this.createToken(user)
+    const token = await this.createToken(user)
+    return { token, user }
   }
 }
 

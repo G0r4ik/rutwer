@@ -1,8 +1,14 @@
-import { getUserByID } from '../Auth/index.js'
 import { checkPostData, normalizePost } from './helpers.js'
 import sql from './sql.js'
 
 class PostsService {
+  async getAllPosts() {
+    const posts = await sql.getAllPosts()
+    posts.sort((a, b) => b.date - a.date)
+    const normalizedPosts = []
+    posts.forEach(post => normalizedPosts.push(normalizePost(post)))
+    return normalizedPosts
+  }
   async addPost(title, text_post, date_pub, user) {
     checkPostData(title, text_post, date_pub)
     const post = await sql.createPost(title, text_post, date_pub, user.id)
@@ -28,8 +34,6 @@ class PostsService {
     }
     checkPostData(title, text, date)
     const rPost = await sql.updatePost(title, text, date, post.id)
-    console.log(rPost)
-    console.log('---------------------------')
     const normalizedPost = normalizePost(rPost, user)
     return normalizedPost
   }
@@ -38,7 +42,6 @@ class PostsService {
     const posts = await sql.searchPost(keyword)
     const normalizedPosts = []
     posts.forEach(post => normalizedPosts.push(normalizePost(post)))
-    console.log(normalizedPosts)
     return normalizedPosts
   }
 }

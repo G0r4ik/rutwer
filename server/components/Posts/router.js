@@ -4,6 +4,7 @@ import controller from './controller.js'
 import { checkPostIDAndSetPost, getUserOfPosts } from './middleware.js'
 
 const PostsRoute = new Router()
+PostsRoute.get('/api/posts/getAll', checkAuthToken, controller.getAllPosts)
 PostsRoute.post('/api/post/create', checkAuthToken, controller.addPost)
 PostsRoute.get(
   `/api/post/get/:postID`,

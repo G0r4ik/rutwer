@@ -2,6 +2,14 @@ import errorHandler from '../../errorHandler.js'
 import PostsService from './service.js'
 
 class PostsController {
+  async getAllPosts(req, res) {
+    try {
+      const posts = await PostsService.getAllPosts()
+      res.status(200).json(posts)
+    } catch (error) {
+      errorHandler(error, req, res)
+    }
+  }
   async addPost(req, res) {
     try {
       const { title, text_post, date_pub } = req.body

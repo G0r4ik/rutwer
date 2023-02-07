@@ -9,7 +9,7 @@ export async function checkPostIDAndSetPost(req, res, next) {
     const error = { status: 422, message: 'Некорректный id поста' }
     return errorHandler(error, req, res)
   }
-  const post = await sql.getPost(postID)
+  const post = await sql.getPost(+postID)
   if (!post) {
     const error = { status: 422, message: 'Такого поста не сущетсвует' }
     return errorHandler(error, req, res)

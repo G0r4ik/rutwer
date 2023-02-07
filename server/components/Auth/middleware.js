@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import errorHandler from '../../errorHandler.js'
 
 export function checkUsername(req, res, next) {
+  // проверки добавить
   if (req.body.username.length < 5) {
     const error = {}
     error.status = 422

@@ -62,10 +62,6 @@ DELETE http://localhost:3000/post/15/comments/delete/4 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIgMjg0IiwiZW1haWwiOiJ1c2VyMTFAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMDQkcTNKMVJXZy9vOWxxVGJEMEJVOU51LlFUQ09zbTRhZktEeC56ZDkzM1BjeC90ajk1NHpEU2kiLCJkYXRlX29mX3JlZ2lzdHJhdGlvbiI6IjIwMjMtMDItMDRUMTQ6MDk6MTAuMjM5WiIsImlkIjoiMzQiLCJpYXQiOjE2NzU1MTk3NTEsImV4cCI6MTY3NTYwNjE1MX0.RURrfwnGZZZosm8zqMnH5-n5R3zJVwadzWPq1tZGznk
 content-type: application/json
 
-{
-
-}
-
 
 
 
@@ -76,7 +72,3 @@ content-type: application/json
 GET http://localhost:3000/post/15/comments/showAll HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwNCRWQmpXdDFJUlNWL2JBa1RxaG0vWmRlU0FGVmY4YVJuM1IwNVZHcHN5ZlRNbEc3VHFKM0NWaSIsImRhdGVfb2ZfcmVnaXN0cmF0aW9uIjoiMjAyMy0wMi0wM1QxODoyNjoyOC40MDhaIiwiaWQiOiIyNyIsImlhdCI6MTY3NTQ1MzI4NiwiZXhwIjoxNjc1NTM5Njg2fQ.4awqFCu9AmC_sH4N0m9TMXlRXjDbiJ5VU_9ljU0YGPY
 content-type: application/json
-
-{
-
-}

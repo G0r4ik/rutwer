@@ -6,27 +6,27 @@ import CommentsController from './controller.js'
 
 const CommentsRoute = new Router()
 CommentsRoute.post(
-  `/post/:postID/comments/add`,
+  `/api/post/:postID/comments/add`,
   checkAuthToken,
   checkPostIDAndSetPost,
   CommentsController.addComment
 )
 CommentsRoute.put(
-  `/post/:postID/comments/update/:commentID`,
+  `/api/post/:postID/comments/update/:commentID`,
   checkAuthToken,
   checkPostIDAndSetPost,
   checkComment,
   CommentsController.updateComment
 )
 CommentsRoute.delete(
-  `/post/:postID/comments/delete/:commentID`,
+  `/api/post/:postID/comments/delete/:commentID`,
   checkAuthToken,
   checkPostIDAndSetPost,
   checkComment,
   CommentsController.deleteComment
 )
 CommentsRoute.get(
-  `/post/:postID/comments/showAll`,
+  `/api/post/:postID/comments/showAll`,
   checkAuthToken,
   checkPostIDAndSetPost,
   CommentsController.showAllComments

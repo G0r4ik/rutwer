@@ -1,6 +1,12 @@
 import { pQuery } from '../../db.js'
 
 class Queries {
+  async getAllPosts() {
+    const result = await pQuery(`SELECT p.*, u.*, p.id AS post_id FROM posts p
+    LEFT JOIN users u ON p.id_user = u.id`)
+    return result
+  }
+
   async createPost(title, text, date, idUser) {
     const result = await pQuery(
       `INSERT INTO posts(title, text, date, id_user) VALUES ($1,$2, $3, $4) RETURNING *`,
@@ -23,6 +29,7 @@ class Queries {
   }
 
   async deletePost(postID) {
+    const d = await pQuery(`DELETE FROM comments WHERE id_post = $1;`, [postID])
     const result = await pQuery(`DELETE FROM posts WHERE id = $1`, [postID])
     return result[0]
   }

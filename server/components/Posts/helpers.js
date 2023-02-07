@@ -1,5 +1,4 @@
 export function normalizePost(post, user = {}) {
-  console.log(post, user)
   const normalizeUser = {
     username: user.username || post.username,
     email: user.email || post.email,
@@ -9,14 +8,13 @@ export function normalizePost(post, user = {}) {
     title: post.title,
     text: post.title,
     date: post.date,
-    postID: post.id,
+    postID: post.post_id,
     user: normalizeUser,
   }
   return normalizePost
 }
 
 export function checkPostData(title, text_post, date_pub) {
-  console.log(date_pub)
   if (title.length < 5) {
     throw { status: 500, message: 'Длинна названия поста минимум 5 симовлов' }
   }

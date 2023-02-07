@@ -3,6 +3,7 @@ import controller from './controller.js'
 import { checkEmail, checkPassword, checkUsername } from './middleware.js'
 const UserRoute = new Router()
 
+UserRoute.post('/api/checkAuthToken', controller.checkAuthToken)
 UserRoute.post(
   '/api/register',
   checkUsername,
