@@ -45,7 +45,7 @@
 <script>
 import api from '../api'
 import { usePostsStore } from '../store'
-
+import { normalizeDate } from '@/shared/helpers'
 export default {
   props: {
     post: Object,
@@ -55,12 +55,13 @@ export default {
     return {
       title: this.post.title,
       text: this.post.text,
-      date: new Date(this.post.date).toISOString().substring(0, 10),
+      date: null,
 
       token: localStorage.getItem('authToken'),
     }
   },
   mounted() {
+    // this.date = new Date(this.post.date).toISOString().substring(0, 10)
     // this.date = new Date().toISOString().substring(0, 10)
   },
   methods: {
@@ -73,7 +74,13 @@ export default {
         this.date
       )
 
-      const idx = usePostsStore().posts.findIndex(p => p.postID === this.postID)
+      updaterdPost.date = normalizeDate(updaterdPost.date)
+      updaterdPost.comments = this.post.comments
+
+      const idx = usePostsStore().posts.findIndex(p => {
+        console.log(p.postID, this.post.postID)
+        return p.postID === this.post.postID
+      })
       if (idx > -1) usePostsStore().posts.splice(idx, 1, updaterdPost)
 
       this.$emit('close')

@@ -6,9 +6,9 @@ export function normalizePost(post, user = {}) {
   }
   const normalizePost = {
     title: post.title,
-    text: post.title,
+    text: post.text,
     date: post.date,
-    postID: post.post_id,
+    postID: post.post_id || post.id,
     user: normalizeUser,
   }
   return normalizePost

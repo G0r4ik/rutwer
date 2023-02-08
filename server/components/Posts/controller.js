@@ -53,6 +53,7 @@ class PostsController {
         post,
         user
       )
+
       res.status(201).json(updatedPost)
     } catch (error) {
       errorHandler(error, req, res)

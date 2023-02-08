@@ -1,9 +1,9 @@
 <template>
-  <div class="post-comments pt-2 bg-primary text-light">
+  <div class="post-comments">
     <div v-if="post.comments?.length">
       <div
         v-for="comment of post.comments"
-        class="post-comments1 border-top border-primary border-top-2 mb-2"
+        class="post-comments1 p-1 border-secondary pb-2 mb-1 rounded-1"
       >
         <post-comment :comment="comment" :post="post" />
       </div>
@@ -34,6 +34,13 @@ export default {
 <style>
 .post-comment {
   width: 100%;
-  padding: 25px;
+  margin-top: 5px;
+  /* padding: 25px; */
+}
+.post-comments1 {
+  background: rgba(13, 110, 253, 0.5);
+}
+.post-comments1:last-child {
+  /* border: none !important; */
 }
 </style>

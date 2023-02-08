@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { AuthLogout } from '@/features/authentication/index.js'
+import { AuthLogout } from '@/features/authentication'
 export default {
   components: { AuthLogout },
 }

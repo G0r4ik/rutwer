@@ -15,17 +15,16 @@
   </div>
 
   <button
-    class="btn btn-primary mt-4"
+    class="btn btn-primary mt-1"
     @click="changeIsVisibleComment"
     @click.once="loadComments"
   >
     {{ showOrHide }}
   </button>
-  <div
-    v-if="isVisibleComment && isDownloadComment"
-    class="post-comment border-top border-primary"
-  >
-    <PostComments :post="post" />
+  <div class="comment-wrapper border-top border-secondary mt-2">
+    <div v-if="isVisibleComment && isDownloadComment" class="post-comment">
+      <PostComments :post="post" />
+    </div>
   </div>
   <teleport v-if="isEditPost" to="body">
     <PostEdit :post="post" @close="close" />
@@ -71,7 +70,6 @@ export default {
   },
   methods: {
     close() {
-      console.log('da')
       this.isEditPost = false
     },
     async loadComments() {
@@ -100,5 +98,8 @@ export default {
 .c {
   width: 100%;
   margin-top: 15px;
+}
+.comment-wrapper {
+  width: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import api from './api'
-
+import { normalizeDate } from '@/shared/helpers'
 export const usePostsStore = defineStore('postsStotre', {
   state: () => ({
     posts: [],
@@ -10,13 +10,7 @@ export const usePostsStore = defineStore('postsStotre', {
     // api
     async createNewPost(token, title, text, date) {
       const post = await api.createPost(token, title, text, date)
-      post.date = new Date(post.date).toLocaleString('ru-RU', {
-        hour: '2-digit',
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-        minute: '2-digit',
-      })
+      post.date = normalizeDate(post.date)
       this.posts.unshift(post)
     },
 

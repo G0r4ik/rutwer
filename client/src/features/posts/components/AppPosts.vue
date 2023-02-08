@@ -3,7 +3,7 @@
     <div class="container">
       <div class="post__inner">
         <div v-for="post of posts" class="post__item post-item">
-          <PostsItem :post="post"/>
+          <PostsItem :post="post" />
         </div>
       </div>
     </div>
@@ -12,14 +12,14 @@
 
 <script>
 import { useAuthStore } from '@/features/authentication/index.js'
-import { PostComments } from '@/features/comments/index.js'
+// import { PostComments } from '@/features/comments/index.js'
 import api from '../api.js'
 import { usePostsStore } from '../store'
 import PostsItem from './PostsItem.vue'
 
 export default {
   components: {
-    PostComments,
+    // PostComments,
     PostsItem,
   },
   data() {
@@ -57,7 +57,8 @@ export default {
   /* width: 100%; */
 }
 .post__item {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
   width: 100%;
   margin-bottom: 15px;
 }

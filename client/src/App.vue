@@ -24,15 +24,3 @@ export default {
 <template>
   <component v-if="tokenCheck" :is="currentGlobalComponent"></component>
 </template>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  line-height: normal !important;
-}
-</style>

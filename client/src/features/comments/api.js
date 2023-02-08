@@ -19,7 +19,7 @@ class CommentsAPI {
     }
   }
 
-  async updateComment(commentID, postID, text, author, date_time) {
+  async updateComment(token, commentID, postID, text, author, date_time) {
     try {
       const response = await fetch(
         `${api}/post/${postID}/comments/update/${commentID}`,
@@ -57,6 +57,7 @@ class CommentsAPI {
       console.error(error)
     }
   }
+
   async showAllComments(token, postID) {
     try {
       const response = await fetch(`${api}/post/${postID}/comments/showAll`, {
