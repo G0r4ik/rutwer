@@ -55,14 +55,13 @@ export default {
       author: this.comment.author,
       text: this.comment.text,
       date: null,
-      token: localStorage.getItem('authToken'),
+
     }
   },
   mounted() {},
   methods: {
     async editComment() {
       const updatedComment = await api.updateComment(
-        this.token,
         this.comment.id,
         this.post.postID,
         this.text,

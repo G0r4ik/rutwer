@@ -1,9 +1,9 @@
 <script>
-import PageAuthentication from './pages/PageAuthentication.vue'
+import Pageauthorization from './pages/Pageauthorization.vue'
 import PageMain from './pages/PageMain.vue'
-import { useAuthStore } from './features/authentication/index'
+import { useAuthStore } from './features/authorization/index'
 export default {
-  components: { PageAuthentication, PageMain },
+  components: { Pageauthorization, PageMain },
   data() {
     return {
       tokenCheck: false,
@@ -15,7 +15,9 @@ export default {
   },
   computed: {
     currentGlobalComponent() {
-      return useAuthStore().token ? 'PageMain' : 'PageAuthentication'
+      return useAuthStore().token && useAuthStore().user
+        ? 'PageMain'
+        : 'Pageauthorization'
     },
   },
 }

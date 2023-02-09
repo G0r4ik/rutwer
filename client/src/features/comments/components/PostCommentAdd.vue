@@ -40,9 +40,8 @@
 </template>
 
 <script>
-import { usePostsStore } from '@/features/posts/index.js'
-import { useAuthStore } from '@/features/authentication/index.js'
-import api from '../api'
+import { usePostsStore } from '@/features/posts'
+import api from '../api.js'
 
 export default {
   props: {
@@ -52,14 +51,13 @@ export default {
     return {
       commentText: '',
       commentAuthor: '',
-      token: useAuthStore().token,
+
       commentDate: new Date().toISOString().substring(0, 10),
     }
   },
   methods: {
     async addNewComment() {
       const comment = await api.addComment(
-        this.token,
         this.post.postID,
         this.commentText,
         this.commentAuthor,

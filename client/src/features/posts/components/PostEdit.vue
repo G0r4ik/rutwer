@@ -56,18 +56,12 @@ export default {
       title: this.post.title,
       text: this.post.text,
       date: null,
-
-      token: localStorage.getItem('authToken'),
     }
   },
-  mounted() {
-    // this.date = new Date(this.post.date).toISOString().substring(0, 10)
-    // this.date = new Date().toISOString().substring(0, 10)
-  },
+  mounted() {},
   methods: {
     async editPost() {
       const updaterdPost = await api.updatePost(
-        this.token,
         this.post.postID,
         this.title,
         this.text,

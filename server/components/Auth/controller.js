@@ -10,7 +10,7 @@ class UserController {
       if (!token) return res.status(200).json({ result: false })
       jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.status(200).json({ result: false })
-        return res.status(200).json({ result: true })
+        return res.status(200).json({ isValid: true })
       })
     } catch (error) {
       handleError(error, req, res)

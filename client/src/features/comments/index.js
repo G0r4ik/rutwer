@@ -1,6 +1,6 @@
 import PostComments from './components/PostComments.vue'
-import api from './api'
-import { useCommentsStore } from './store'
+import api from './api.js'
+import { useCommentsStore } from './store.js'
 const showAllComments = api.showAllComments
 
-export { PostComments, showAllComments, useCommentsStore }
+export { useCommentsStore, showAllComments, PostComments }

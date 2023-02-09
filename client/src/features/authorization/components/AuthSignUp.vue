@@ -1,4 +1,5 @@
 <template>
+  <small class="mb-1 d-inline-block text-danger">{{ serverError }}</small>
   <input
     class="sign-up__login form-control"
     :class="{ 'border-danger': error.email }"
@@ -35,28 +36,29 @@
   </small>
   <button
     class="auth__button btn btn-primary mt-2 d-block"
-    @click.prevent="checkData"
+    @click.prevent="register"
     :disabled="!isValidData"
   >
     Зарегистрироваться
   </button>
 </template>
 <script>
+import api from '../api'
 import {
   checkLoginV,
   checkPasswordV,
   checkEmailV,
   isValidDataV,
-} from '../helpers/validator.js.js'
+} from '../helpers/validator.js'
+import { useAuthStore } from '../store'
 export default {
-  emits: ['register'],
-
   data() {
     return {
       login: '',
       password: '',
       email: '',
       error: { login: '', password: '', email: '' },
+      serverError: '',
     }
   },
   computed: {
@@ -66,23 +68,33 @@ export default {
   },
 
   methods: {
-    checkData() {
+    checkLogin() {
+      this.error.login = checkLoginV(this.login)
+    },
+    checkPassword() {
+      this.error.password = checkPasswordV(this.password)
+    },
+    checkEmail() {
+      this.error.email = checkEmailV(this.email)
+    },
+    async register() {
       this.checkLogin()
       this.checkPassword()
       this.checkEmail()
 
       if (this.isValidData) {
-        this.$emit('register', this.login, this.password, this.email)
+        const res = await api.registerUser(
+          this.login,
+          this.email,
+          this.password
+        )
+        if (res.error) {
+          this.serverError = res.error.message
+        } else {
+          useAuthStore().setAuthToken(res.token)
+          useAuthStore().setUser(res.user)
+        }
       }
-    },
-    checkLogin() {
-      checkLoginV(this.login, this.error)
-    },
-    checkPassword() {
-      checkPasswordV(this.password, this.error)
-    },
-    checkEmail() {
-      checkEmailV(this.email, this.error)
     },
   },
 }

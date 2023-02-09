@@ -1,8 +1,8 @@
 <template>
-  <div class="popup-wrapper container bg-primary rounded py-3">
+  <div class="posts-create container py-2">
     <form class="create-post" @click.stop>
       <div class="mb-1">
-        <label for="create-post-title" class="form-label">Заголовок</label>
+        <label for="create-post-title">Заголовок:</label>
         <input
           v-model="title"
           type="text"
@@ -15,31 +15,33 @@
       </div>
 
       <div class="mb-1">
-        <label for="create-post-text " class="form-label">Текст</label>
+        <label for="create-post-text">Текст:</label>
         <textarea
           v-model="text"
           class="form-control"
           name="create-post-text"
           id="create-post-text"
+          placeholder="Текст"
           rows="3"
         ></textarea>
       </div>
-      <div class="mb-3">
+
+      <div class="">
         <label for="create-post__date" class="create-post__text-date">
           Дата:
-          <input
-            v-model="date"
-            type="date"
-            class="form-control"
-            name="create-post__date"
-            id="create-post__date"
-          />
         </label>
+        <input
+          v-model="date"
+          type="date"
+          class="form-control"
+          name="create-post__date"
+          id="create-post__date"
+        />
       </div>
-      <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
 
+      <small class="text-danger fs-4 d-block my-2">{{ error }} </small>
       <button
-        class="create-post__button-add btn btn-light"
+        class="create-post__button-add btn btn-primary"
         @click.prevent="createNewPost"
       >
         Создать пост
@@ -49,7 +51,7 @@
 </template>
 
 <script>
-import { useAuthStore } from '../../authentication'
+import api from '../api'
 import { usePostsStore } from '../store'
 
 export default {
@@ -57,85 +59,29 @@ export default {
     return {
       title: '',
       text: '',
-      date: '',
-      token: useAuthStore().token,
+      date: new Date().toISOString().substring(0, 10),
+      error: '',
     }
   },
-  computed: {
-    isValidData() {
-      return
-    },
-  },
-  mounted() {
-    this.date = new Date().toISOString().substring(0, 10)
-  },
   methods: {
-    createNewPost() {
-      usePostsStore().createNewPost(
-        this.token,
-        this.title,
-        this.text,
-        this.date
-      )
-      this.title = ''
-      this.text = ''
+    async createNewPost() {
+      const result = await api.createPost(this.title, this.text, this.date)
+      if (result.error) {
+        this.error = result.error.message
+      } else {
+        usePostsStore().createNewPost(result)
+        this.title = ''
+        this.text = ''
+      }
     },
   },
 }
 </script>
 <style>
-.popup-wrapper {
+.posts-create {
+  background: lightskyblue;
   margin-top: 70px;
-}
-/* .popup-wrapper {
-  z-index: 50;
-  background: rgba(0, 0, 0, 0.4);
-  left: 0;
-  top: 0;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.create-post {
-  display: flex;
-  flex-direction: column;
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  position: relative;
-  align-items: flex-start;
-}
-.create-post__close {
-  cursor: pointer;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-}
-.create-post__title-label {
-  width: 100%;
-}
-.create-post__title {
-  color: black;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  border: none;
 }
-.create-post__text-label {
-  display: flex;
-}
-.create-post__text {
-  color: black;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 5px;
-  border: none;
-  resize: none;
-}
-.create-post__button-add {
-  margin-top: 15px;
-} */
 </style>

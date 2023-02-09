@@ -1,104 +1,74 @@
+import axios from 'axios'
 import consts from '@/shared/consts'
+import { useAuthStore } from '@/features/authorization'
 const api = consts.serverAPI
+import { handleError } from '@/shared/helpers'
+
+const instance = axios.create({ baseURL: api })
+
+instance.interceptors.request.use(config => {
+  const authStore = useAuthStore()
+  config.headers.Authorization = `Bearer ${authStore.token}`
+  config.headers.Accept = 'application/json'
+  return config
+})
 
 class PostsAPI {
-  async getAllPosts(token) {
+  async getAllPosts() {
     try {
-      const response = await fetch(`${api}/posts/getAll`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      return data
+      const response = await instance.get('/posts/getAll')
+      return response.data
     } catch (error) {
-      console.error(error)
-    }
-  }
-  async createPost(token, title, text_post, date_pub) {
-    try {
-      const response = await fetch(`${api}/post/create`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, text_post, date_pub }),
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.error(error)
+      return handleError(error)
     }
   }
 
-  async getPost(token, postID) {
+  async createPost(title, text_post, date_pub) {
     try {
-      const response = await fetch(`${api}/post/get/${postID}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, text_post, date_pub }),
-      })
-      const data = await response.json()
-      return data
+      const body = { title, text_post, date_pub }
+      const response = await instance.post('/post/create', body)
+      return response.data
     } catch (error) {
-      console.error(error)
+      return handleError(error)
     }
   }
 
-  async deletePost(token, postID) {
+  async deletePost(postID) {
     try {
-      const response = await fetch(`${api}/post/delete/${postID}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      return data
+      const response = await instance.delete(`/post/delete/${postID}`)
+      return response.data
     } catch (error) {
-      console.error(error)
+      return handleError(error)
     }
   }
 
-  async updatePost(token, postID, title, text_post, date_pub) {
+  async updatePost(postID, title, text_post, date_pub) {
     try {
-      const response = await fetch(`${api}/post/update/${postID}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, text_post, date_pub }),
-      })
-      const data = await response.json()
-      return data
+      const body = { title, text_post, date_pub }
+      const response = await instance.put(`/post/update/${postID}`, body)
+      return response.data
     } catch (error) {
-      console.error(error)
+      return handleError(error)
     }
   }
 
-  async getPosts(token, searcText) {
-    try {
-      const response = await fetch(`${api}/post/search/${searcText}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // async searchPosts(searchText) {
+  //   try {
+  //     const response = await instance.get(`/post/search/${searchText}`)
+  //     return response.data
+  //   } catch (error) {
+  //     return handleError(error)
+  //   }
+  // }
+
+  // async getPost(postID) {
+  //   try {
+  //     const response = await instance.get(`/post/get/${postID}`)
+  //     return response.data
+  //   } catch (error) {
+  //     return handleError(error)
+  //   }
+  // }
 }
 
 export default new PostsAPI()

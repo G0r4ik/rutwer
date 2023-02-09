@@ -1,5 +1,5 @@
 <template>
-  <div class="post-comments">
+  <!-- <div class="post-comments">
     <div v-if="post.comments?.length">
       <div
         v-for="comment of post.comments"
@@ -10,24 +10,19 @@
     </div>
     <div v-else class="pb-2">Будьте первым кто оставит комментарий</div>
   </div>
-  <PostCommentAdd :post="post" />
+  <PostCommentAdd :post="post" /> -->
 </template>
 <script>
-import PostComment from './PostComment.vue'
+// import PostComment from './PostComment.vue'
 import PostCommentAdd from './PostCommentAdd.vue'
 
 export default {
-  components: { PostComment, PostCommentAdd },
+  // components: { PostComment, PostCommentAdd },
   props: ['post'],
   data() {
     return {
       comments: [],
     }
-  },
-  mounted() {
-    // getComments().then(response => {
-    //   this.comments = response
-    // })
   },
 }
 </script>

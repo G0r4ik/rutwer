@@ -1,9 +1,25 @@
 export function normalizeDate(date) {
   return new Date(date).toLocaleString('ru-RU', {
-    hour: '2-digit',
     month: '2-digit',
     day: '2-digit',
     year: 'numeric',
-    minute: '2-digit',
   })
+}
+
+export function untiNormalizeDate(date) {
+  return new Date(date).toISOString()
+}
+
+export function handleError(error) {
+  if (error.response) {
+    console.error(error.response.data)
+    return { error: error.response.data }
+  }
+  if (error.request) {
+    console.error('Сервер выключен или у вас проблемы с интернетом')
+    return {
+      error: { message: 'Сервер выключен или у вас проблемы с интернетом' },
+    }
+  }
+  console.error('Error', error.message)
 }
