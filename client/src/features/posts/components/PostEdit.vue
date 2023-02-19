@@ -62,7 +62,7 @@ export default {
   methods: {
     async editPost() {
       const updaterdPost = await api.updatePost(
-        this.post.postID,
+        this.post.id,
         this.title,
         this.text,
         this.date
@@ -72,8 +72,8 @@ export default {
       updaterdPost.comments = this.post.comments
 
       const idx = usePostsStore().posts.findIndex(p => {
-        console.log(p.postID, this.post.postID)
-        return p.postID === this.post.postID
+        console.log(p.id, this.post.id)
+        return p.id === this.post.id
       })
       if (idx > -1) usePostsStore().posts.splice(idx, 1, updaterdPost)
 

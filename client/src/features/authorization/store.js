@@ -11,7 +11,6 @@ function checkUser() {
 }
 
 export const useAuthStore = defineStore('auth', {
-  created() {},
   state: () => ({
     token: localStorage.getItem('authToken') || null,
     user: checkUser(),
@@ -34,6 +33,7 @@ export const useAuthStore = defineStore('auth', {
 
     async checkAuthToken() {
       const data = await api.checkAuthToken(this.token)
+      console.log(data)
       if (data.isValid) return
 
       localStorage.removeItem('authToken')

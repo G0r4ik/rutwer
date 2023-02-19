@@ -71,6 +71,7 @@ export default {
       if (this.isValidData) {
         const res = await api.loginUser(this.login, this.password)
         if (res.error) {
+          console.log(res.error)
           this.serverError = res.error.message
         } else {
           useAuthStore().setAuthToken(res.token)

@@ -16,7 +16,7 @@ instance.interceptors.request.use(config => {
 class PostsAPI {
   async getAllPosts() {
     try {
-      const response = await instance.get('/posts/getAll')
+      const response = await instance.get('/post/getAll')
       return response.data
     } catch (error) {
       return handleError(error)
@@ -25,8 +25,8 @@ class PostsAPI {
 
   async createPost(title, text_post, date_pub) {
     try {
-      const body = { title, text_post, date_pub }
-      const response = await instance.post('/post/create', body)
+      const body = { title, text: text_post, date_pub }
+      const response = await instance.post('/post/', body)
       return response.data
     } catch (error) {
       return handleError(error)
@@ -44,7 +44,7 @@ class PostsAPI {
 
   async updatePost(postID, title, text_post, date_pub) {
     try {
-      const body = { title, text_post, date_pub }
+      const body = { title, text: text_post, date_pub }
       const response = await instance.put(`/post/update/${postID}`, body)
       return response.data
     } catch (error) {

@@ -1,5 +1,6 @@
 import errorHandler from '../../errorHandler.js'
-import PostsService from './service.js'
+// import PostsService from './service.js'
+import PostsService from './service'
 
 class PostsController {
   async getAllPosts(req, res) {

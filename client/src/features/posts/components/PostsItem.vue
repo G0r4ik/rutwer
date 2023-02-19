@@ -8,7 +8,7 @@
     <span class="post-item__text">{{ post.text }}</span>
     <div class="post-item__dropdown-wrapper">
       <PostToolbar
-        v-if="post.user.userID === user.id"
+        v-if="post.user.id === user.id"
         @editPost="editPost(post)"
         @deletePost="deletePost(post)"
       />

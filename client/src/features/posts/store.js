@@ -13,8 +13,8 @@ export const usePostsStore = defineStore('postsStotre', {
     },
 
     async deletePost(post) {
-      api.deletePost(post.postID)
-      let index = this.posts.findIndex(post_ => post_.postID === post.postID)
+      api.deletePost(post.id)
+      let index = this.posts.findIndex(post_ => post_.id === post.id)
       if (index > -1) this.posts.splice(index, 1)
     },
 

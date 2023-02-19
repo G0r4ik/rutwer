@@ -2,7 +2,12 @@ import axios from 'axios'
 import consts from '@/shared/consts.js'
 import { handleError } from '@/shared/helpers'
 const api = consts.serverAPI
-const instance = axios.create({ baseURL: api })
+const instance = axios.create({
+  baseURL: api,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
 class AuthAPI {
   async checkAuthToken(token) {
@@ -31,7 +36,11 @@ class AuthAPI {
   async loginUser(username, password) {
     try {
       const body = { username, password }
-      const response = await instance.post(`/login`, body)
+      const response = await instance.post(`/login`, body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       return response.data
     } catch (error) {
       return handleError(error)

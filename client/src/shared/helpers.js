@@ -12,7 +12,7 @@ export function untiNormalizeDate(date) {
 
 export function handleError(error) {
   if (error.response) {
-    console.error(error.response.data)
+    // console.error(error.response.data)
     return { error: error.response.data }
   }
   if (error.request) {
@@ -21,5 +21,5 @@ export function handleError(error) {
       error: { message: 'Сервер выключен или у вас проблемы с интернетом' },
     }
   }
-  console.error('Error', error.message)
+  // console.error('Error', error.message)
 }
